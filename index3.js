@@ -1,7 +1,7 @@
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
-var path = require('path');
+let http = require('http');
+let url = require('url');
+let fs = require('fs');
+let path = require('path');
 
 const mimetypes = {
     'html': 'text/html',
@@ -12,14 +12,14 @@ const mimetypes = {
     'jpg': 'image/jpg'
 };
 
-var portname = '127.0.0.1';
-var port = '3000';
+let portname = '127.0.0.1';
+let port = '3000';
 
 http.createServer((req, res) => {
-    var myuri = url.parse(req.url).pathname;
-    var filename = path.join(process.cwd(), unescape(myuri));
+    let myuri = url.parse(req.url).pathname;
+    let filename = path.join(process.cwd(), unescape(myuri));
     console.log('File you are looking for is:' + 'filename');
-    var loadFile;
+    let loadFile;
 
     try {
         loadFile = fs.lstatSync(filename);
@@ -33,11 +33,11 @@ http.createServer((req, res) => {
     }
 
     if (loadFile.isFile()) {
-        var mimeType = mimetypes[path.extname(filename).split('.').reverse()[0]];
+        let mimeType = mimetypes[path.extname(filename).split('.').reverse()[0]];
         res.writeHead(200, {
             "Content-Type": mimeType
         });
-        var filestream = fs.createReadStream(filename);
+        let filestream = fs.createReadStream(filename);
         filestream.pipe(res);
     }   else if (loadFile.isDirectory()) {
         res.writeHead(302, {
